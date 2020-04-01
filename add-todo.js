@@ -1,5 +1,8 @@
-
-// A function that adds an item to our todo list.
-const addTodo = function(todo) {
-  todos.push(todo);
+const addTodo = function() {
+  const newTodo = {}
+  newTodo.text = document.querySelector('.todo-input').value
+  newTodo.id = todos.length
+  newTodo.complete = false
+  newTodo.priority = document.querySelector('.priority').options.selectedIndex+1
+  todos.push(newTodo);
 }

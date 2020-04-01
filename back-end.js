@@ -16,6 +16,11 @@ const getPriority = function (todo) {
   return todo.priority
 }
 
+const getNameAndPri = function(todo){
+  const priority = todo.priority === 2 ? 'High' : 'Low';
+    return `${todo.text} - ${priority}`
+}
+
 const isComplete = function(todo) {
   return todo.complete
 }
@@ -30,6 +35,18 @@ const isHighPriority = function(todo) {
 
 const isLowPriority = function(todo) {
   return todo.priority === 1
+}
+
+const sortByPriDesc = function(a,b){
+  a = a.priority
+  b = b.priority
+  return b-a
+}
+
+const sortByNotComp = function(a,b){
+  a = a.complete
+  b = b.complete
+  return a-b
 }
 
 
@@ -62,6 +79,33 @@ const priority2Only = function (todos) {
 
 const priority1Only = function (todos) {
   return todos.filter(isLowPriority)
+}
+
+const priority2First = function (todos) {
+  return [...todos].sort(sortByPriDesc)
+}
+
+const notCompleteFirst = function (todos) {
+  return [...todos].sort(sortByNotComp)
+}
+
+const pri2FirstCompLast = function (todos) {
+  const compArr = []
+  const priSorted = [...todos].sort(sortByPriDesc)
+  const pri2 = []
+  const arr = []
+  for (let i=0; i<todos.length; i++){
+    if (priSorted[i].complete===true){
+      compArr.push(priSorted[i])
+    }
+    else if (priSorted[i].priority===2){
+      pri2.push(priSorted[i])
+    }
+    else {
+      arr.push(priSorted[i])
+    }
+  }
+  return pri2.concat(arr,compArr)
 }
 
 if (typeof notCompleteFirst === 'undefined') {
